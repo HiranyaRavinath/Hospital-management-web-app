@@ -69,15 +69,16 @@ public class Register extends HttpServlet {
         String name = request.getParameter("name"),
                email = request.getParameter("email"), 
                password = request.getParameter("password");
+        String epassword =Encrypt.Md5encryption(password);
         
-        if(con.registerUser(name, email, password)){
-            out.print("Register Successful!");
-            RequestDispatcher req = request.getRequestDispatcher("index.html");
+        if(con.registerUser(name, email, epassword)){
+            
+            RequestDispatcher req = request.getRequestDispatcher("AdminLogin.html");
             req.include(request, response);
         }
         else{
-            out.print("Register failed!, try again");
-            RequestDispatcher req = request.getRequestDispatcher("index.html");
+            
+            RequestDispatcher req = request.getRequestDispatcher("loginError.html");
             req.include(request, response);
         }
     }
